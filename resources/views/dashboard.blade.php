@@ -1,15 +1,75 @@
 <x-layout>
-    <x-slot name="title">Dashboard</x-slot>
-    <div class="hero min-h-screen">
-        <div class="hero-content text-center">
-            <div class="max-w-md">
-                <h1 class="text-5xl font-bold">Hello, {{ request()->user()->name }}!!</h1>
-                <p class="py-6">
-                    Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                    quasi. In deleniti eaque aut repudiandae et a id nisi.
-                </p>
-                <a href="{{ route('orders.index') }}" class="btn btn-primary">Get Started</a>
+    <x-slot:title>Dashboard</x-slot:title>
+
+    <div class="container mx-auto mt-52">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+            <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                    <div>Products Terjual</div>
+                    <h1 class="font-bold text-2xl">{{ number_format($productsSold) }}</h1>
+                </div>
             </div>
+
+            <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                    <div>Pendapatan</div>
+                    <h1 class="font-bold text-2xl">{{ number_format($revenue) }}</h1>
+                </div>
+            </div>
+
+            <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                    <div>Orders</div>
+                    <h1 class="font-bold text-2xl">{{ number_format($ordersCount) }}</h1>
+                </div>
+            </div>
+
+            <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                    <div>Products</div>
+                    <h1 class="font-bold text-2xl">{{ number_format($productsCount) }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <h6 class="text-2xl font-semibold mt-32 mb-5 mx-20">{{ count($recentOrders) }} Orders Terkini</h6>
+
+        <div class="card bg-base-100 shadow mb-2 overflow-hidden mx-20">
+            <table class="table w-full">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Customer</th>
+                        <th>Payment</th>
+                        <th>Total</th>
+                        <th>User</th>
+                        <th>Tanggal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @forelse ($recentOrders as $order)
+                        <tr>
+                            <td>Order #{{ $order->id }}</td>
+                            <td>{{ $order->customer }}</td>
+                            <td>{{ number_format($order->payment) }}</td>
+                            <td>{{ number_format($order->total) }}</td>
+                            <td>{{ $order->user->name }}</td>
+                            <td>{{ $order->formatted_created_at }}</td>
+                            <td class="text-right">
+                                <a href="{{ route('orders.show', ['order' => $order->id]) }}" class="btn btn-sm btn-primary">
+                                    Lihat
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Belum ada order</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </x-layout>

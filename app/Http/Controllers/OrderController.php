@@ -142,12 +142,11 @@ class OrderController extends Controller
     }
 
     public function destroy(Order $order)
-{
-    $order->details()->delete(); 
+    {
+        $order->details()->delete();
 
-    $order->delete();
+        $order->delete();
 
-    return redirect()->route('orders.index')->with('success', 'Order dan detailnya berhasil dihapus!');
-}
-
+        return redirect()->route('orders.index')->with('success', 'Order dan detailnya berhasil dihapus!');
+    }
 }

@@ -23,7 +23,7 @@
 
 <body>
     <div class="hero bg-base-200 min-h-screen">
-        <div class="hero-content flex-col lg:flex-row gap-40">
+        <div class="hero-content flex-col lg:flex-row lg:gap-40">
             <div class="text-center lg:text-left w-1/2">
                 <h1 class="text-5xl font-bold">Cashed</h1>
                 <p class="py-6">

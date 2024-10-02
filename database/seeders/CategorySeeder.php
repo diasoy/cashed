@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
 
         Category::query()->create([
             'name' => 'Beverage',
-            'active' => 0,
+            'active' => 1,
         ]);
 
         Category::query()->create([
